@@ -1,26 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter as Router, Route,  Switch } from 'react-router-dom';
+import axios from 'axios';
+import Movies from './Movies.js';
+import AutoComplate from './autocomplate';
+
+const Error = () => {
+  return (<h1>Aradığınız Sayfa Bulunamadı</h1>)
+}
+
+
 
 class App extends Component {
+  constructor() {
+    super()
+    this.moviesDetail = this.moviesDetail.bind(this);
+    
+  }
+
+  state = {
+    movies: [],
+   
+
+  }
+ /**Bir alt componentte filimler servisten çekilmişti. Ancak filimlerin kulanılabilir alanlarının çok kısıtlı olduğundan
+  * Her filmin tüm verisini elde etmek için gelen filmler dizisi üzerinde Title ile sorgulama yapılark 
+  * ilgili filmlerin tüm bilgileri elde edilmiştir.
+  * SetTimeout yine alt componente olduğu gibi servisten gelen verileri bekliyor
+  */
+
+  moviesDetail(movie) {
+   
+    const movies = [];
+    setTimeout(() => {
+      const array = movie.movies;
+      if(array != null){
+        for (let i = 0; i < array.length; i++) {
+          axios.get("http://www.omdbapi.com/?apikey=74d6d70e&t=" + array[i].Title)
+          .then(data => {
+           movies.push(data.data)
+            this.setState({
+              movies : movies
+            })
+          })
+        }
+        
+      }
+    }, 100)
+  }
+
   render() {
+
+    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <div className="App ">
+          <Switch>
+            <Route path='/' exact component = {()=><AutoComplate moviesDetail={this.moviesDetail} movies={this.state.movies} />} />
+            <Route path='/movies' exact component={()=><Movies movies={this.state.movies} />}  />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

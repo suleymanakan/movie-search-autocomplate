@@ -1,5 +1,52 @@
 .App {
-  text-align: center;
+  text-align:left ;
+ 
+}
+.container{
+  float: center;
+  
+  
+}
+.detail{
+  margin: 0 auto;
+
+}
+.lft{
+  float: left;
+}
+.midImg{
+  width: 100%;
+  height: 90%;
+}
+.rgt{
+  float: right;
+}
+.btn{
+  text-align: center !important;
+  margin: auto;
+ 
+}
+.auto-complate{
+  width: 60%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  float:center !important;
+}
+.auto-complate-search img{
+  width: 100%;
+  height: 90%;
+}
+.list{
+list-style-type: none;
+float: left;
+}
+.padTop_20{
+  padding-top: 20px;
+}
+#dahafazla{
+  float: center;
+  
 }
 
 .App-logo {
