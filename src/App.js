@@ -1,36 +1,25 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 import { BrowserRouter as Router, Route,  Switch } from 'react-router-dom';
 import axios from 'axios';
-import Movies from './Movies.js';
-import AutoComplate from './autocomplate';
-
-const Error = () => {
-  return (<h1>Aradığınız Sayfa Bulunamadı</h1>)
-}
-
-
+import Movies from './js/Movies.js';
+import AutoComplate from './js/Autocomplate';
 
 class App extends Component {
   constructor() {
     super()
     this.moviesDetail = this.moviesDetail.bind(this);
-    
-  }
-
-  state = {
-    movies: [],
-   
-
-  }
+    this.state = {
+      movies: [],
+    }
+  } 
  /**Bir alt componentte filimler servisten çekilmişti. Ancak filimlerin kulanılabilir alanlarının çok kısıtlı olduğundan
   * Her filmin tüm verisini elde etmek için gelen filmler dizisi üzerinde Title ile sorgulama yapılark 
   * ilgili filmlerin tüm bilgileri elde edilmiştir.
-  * SetTimeout yine alt componente olduğu gibi servisten gelen verileri bekliyor
+  * SetTimeout yine alt componente olduğu gibi servisten gelen verileri bekliyor 
   */
 
   moviesDetail(movie) {
-   
     const movies = [];
     setTimeout(() => {
       const array =  movie.movies;
@@ -43,15 +32,14 @@ class App extends Component {
               movies : movies
             })
           })
+          .catch(err=>console.Error(err))
         }
         
       }
     }, 100)
   }
 
-  render() {
-
-    
+  render() { 
     return (
       <Router>
         <div className="App ">
@@ -67,3 +55,5 @@ class App extends Component {
 }
 
 export default App;
+
+const Error =()=>{return(<h4>Sayfa Bulunamadı</h4>)}
