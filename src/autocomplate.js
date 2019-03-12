@@ -7,16 +7,18 @@ class AutoComplate extends React.Component {
     constructor(){
         super()
         this.onChange = this.onChange.bind(this);
+        this.state = {
+            movies:[],
+            name : " ",
+        }  
     }
-    static propType ={
+    // PropType tanımı yapılarak gelecek olan propsların tiplerinin  ne olması gerektiğini belirtiyoruz
+    static propType = {
         moviesDetail : PropTypes.array.isRequired,
         moviesDetail: PropTypes.func
 
     }
-    state = {
-        movies:[],
-        value : ''
-    }
+    
 /** Bu fonksiyonda önce search inputuna girilen değeri alıyoruz.
  * Girilen veriye göre servisten filimler çekiliyor.
  * Ancak burda dikat edilmesi gereken en önemli nokta javaScriptin asekron yapısından dolayı
@@ -28,31 +30,30 @@ class AutoComplate extends React.Component {
  * içteki Time fonk. ise bir üst componentin fonk. boş veri göndermemesi için servisi beklemektedir. 
  */
     onChange(e){
-        e.preventDefault();
-        const value = e.target.value;
-       setTimeout(()=>{
-        axios.get("http://www.omdbapi.com/?apikey=74d6d70e&s="+value)
-        .then(data=>{
-          this.setState({
-            movies: data.data.Search,
-            value:value 
-          });setTimeout(()=>{
-            this.props.moviesDetail({...this.state})
-          },300)
-        })
-       },400)
-       
-    }
-    
-
-    render() {
-       
         
+        const value = e.target.value;
+        this.setState({ [e.target.name]: e.target.value})
+        if(value.length > 0){
+            setTimeout(()=>{
+                axios.get("http://www.omdbapi.com/?apikey=74d6d70e&s="+value)
+                .then(data=>{
+                  this.setState({
+                    movies: data.data.Search    
+                  });setTimeout(()=>{
+                    this.props.moviesDetail({...this.state})
+                  },300)
+                })
+               },400)
+        }
+       
+      // e.preventDefault();
+    }
+    render() {
         return (
             <div className="container d-flex justify-content-center">
             <div className="auto-complate">
                 <div className="input-group ">
-                    <input type="text" id="movieSearh" onChange={this.onChange} className="form-control" placeholder="Bulmak istediğiniz filmin adını yazınız" />
+                    <input type="text" id="movieSearh" name="name" value={this.state.value} onChange={this.onChange} className="form-control" placeholder="Bulmak istediğiniz filmin adını yazınız" />
                     <div className="input-group-append">
                         <button className="btn btn-info" type="button" >
                             <i id="icon" className="fa fa-search "></i>

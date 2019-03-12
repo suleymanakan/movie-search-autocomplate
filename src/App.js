@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './App.css';
 import { BrowserRouter as Router, Route,  Switch } from 'react-router-dom';
 import axios from 'axios';
@@ -34,7 +33,7 @@ class App extends Component {
    
     const movies = [];
     setTimeout(() => {
-      const array = movie.movies;
+      const array =  movie.movies;
       if(array != null){
         for (let i = 0; i < array.length; i++) {
           axios.get("http://www.omdbapi.com/?apikey=74d6d70e&t=" + array[i].Title)
@@ -59,6 +58,7 @@ class App extends Component {
           <Switch>
             <Route path='/' exact component = {()=><AutoComplate moviesDetail={this.moviesDetail} movies={this.state.movies} />} />
             <Route path='/movies' exact component={()=><Movies movies={this.state.movies} />}  />
+            <Route component={Error} />
           </Switch>
         </div>
       </Router>

@@ -31,7 +31,7 @@ class Movies extends React.Component {
                                 <ul className="list">
                                     <li className="list-item"><strong>Dil:</strong>{movie.Language}</li>
                                     <li className="list-item"><strong>Oyuncular:</strong>{movie.Actors} |<a href="#"> Tüm listeyi gör>></a></li><br />
-                                    <li className="list-item"> {movie.Plot} <strong><a href="#"> Detaylar >></a></strong></li>
+                                    <li className="list-item"> {movie.Plot} <a href="#"> Detaylar >></a></li>
                                 </ul>
                             </div>
                         <hr style={{ width: "80%", solid: "border", size: "5px", align: "center", color: "#f1f1f1" }}></hr>
