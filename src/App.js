@@ -32,7 +32,7 @@ class App extends Component {
               movies : movies
             })
           })
-          .catch(err=>console.Error(err))
+          .catch(err=>console.log(err))
         }
         
       }

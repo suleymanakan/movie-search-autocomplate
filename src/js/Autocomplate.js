@@ -30,10 +30,8 @@ class AutoComplate extends React.Component {
  * içteki Time fonk. ise bir üst componentin fonk. boş veri göndermemesi için servisi beklemektedir. 
  */
     onChange(e){
-        
         const value = e.target.value;
         this.setState({ [e.target.name]: e.target.value})
-        console.log(this.state.name)
         if(value.length > 0){
             setTimeout(()=>{
                 axios.get("http://www.omdbapi.com/?apikey=74d6d70e&s="+value)
@@ -45,10 +43,9 @@ class AutoComplate extends React.Component {
                     this.props.moviesDetail({...this.state})
                   },300)
                 })
-                .catch(err=>console.Error(err))
+                .catch(err=>console.log(err))
                },400)
         }
-       
        e.preventDefault();
     }
     render() {
