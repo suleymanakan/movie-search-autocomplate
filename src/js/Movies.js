@@ -17,7 +17,7 @@ class Movies extends React.Component {
                                     <ul className="list" >
                                         <li className="list-item"><strong>Dil:</strong>{movie.Language}</li>
                                         <li className="list-item"><strong>Oyuncular:</strong>{movie.Actors}|<a href="#"> Tüm listeyi gör >></a></li><br />
-                                        <li className="list-item"> {movie.Plot} <a href="#"> Detaylar >></a></li>
+                                        <li className="list-item"> {movie.Plot.substring(0,70)} <a href="#"> Detaylar >></a></li>
                                     </ul>
                                 </div>
                             </div>

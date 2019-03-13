@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './css/App.css';
 import { BrowserRouter as Router, Route,  Switch } from 'react-router-dom';
-import axios from 'axios';
 import Movies from './js/Movies.js';
 import AutoComplate from './js/Autocomplate';
+import {Request} from './js/Request';
+
 
 class App extends Component {
   constructor() {
@@ -21,22 +22,20 @@ class App extends Component {
 
   moviesDetail(movie) {
     const movies = [];
-    setTimeout(() => {
-      const array =  movie.movies;
+      const array = movie[0];
       if(array != null){
         for (let i = 0; i < array.length; i++) {
-          axios.get("http://www.omdbapi.com/?apikey=74d6d70e&t=" + array[i].Title)
+          /** Request sınıfından bir object türetildi ve bu object üzerinden istek yapılıyor */
+          const response = new Request("http://www.omdbapi.com/?apikey=74d6d70e&t=" + array[i].Title)
+          response.get()
           .then(data => {
-           movies.push(data.data)
-            this.setState({
-              movies : movies
-            })
+           movies.push(data);
+           this.setState({
+            movies : movies })
           })
-          .catch(err=>console.log(err))
+          .catch(err=>console.log(err)) 
         }
-        
       }
-    }, 100)
   }
 
   render() { 
